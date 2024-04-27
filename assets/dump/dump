@@ -1,0 +1,39 @@
+<thead>
+<tr>
+    <th>NIK</th>
+    <th>Nama</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th>No. Telepon</th>
+    <th>Alamat</th>
+    <th>Tipe User</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+    <th>NIK</th>
+    <th>Nama</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th>No. Telepon</th>
+    <th>Alamat</th>
+    <th>Tipe User</th>
+</tr>
+</tfoot>
+<tbody>
+<?php
+foreach ($air->tampil_user() as $d) {
+?>
+    <tr>
+        <td><?php echo $d['nik']; ?></td>
+        <td><?php echo $d['nama']; ?></td>
+        <td><?php echo $d['username']; ?></td>
+        <td><?php echo $d['email']; ?></td>
+        <td><?php echo $d['no_telepon']; ?></td>
+        <td><?php echo $d['alamat']; ?></td>
+        <td><?php echo $d['tipe_user']; ?></td>
+    </tr>
+<?php
+}
+?>
+</tbody>

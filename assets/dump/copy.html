@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        padding: 5px;
+        margin: 0;
+    }
+    .container {
+        display: grid;
+        grid-template-columns: 200px auto 100px;
+        grid-template-rows: 100px auto;
+        grid-template-areas: 
+        "h h k"
+        "s c c"
+        "f f f";
+    }
+    .header {
+        display: grid;
+        grid-area: h;
+        background-color: aquamarine;
+        align-items: center;
+    }
+    .content {
+        grid-area: c;
+        display: grid;
+        background-color: bisque;
+    }
+    th, td {
+        border: 2px solid black;
+    }
+    .sidebar{
+        grid-area: s;
+        background-color: azure;
+    }
+    li {
+        list-style: none;
+    }
+    .footer {
+        grid-area: f;
+        background-color: aquamarine;
+    }
+    .header, .sidebar, .content, .footbar {
+        padding: 10px;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Header</h1>
+        </div>
+        <div class="sidebar">
+            <ul>
+                <li>Halaman Admin</li>
+                <li>Halaman Warga</li>
+                <li>Halaman Petugas</li>
+                <li>Halaman Bendahara</li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Content</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam sit molestiae quod nostrum delectus laborum libero aliquam, sint voluptates facilis omnis tempora tenetur quia fugit esse, voluptate laudantium eos doloribus!</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>Kelas</th>
+                        <th>J. Kelamin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>4.31.22.3.17</td>
+                        <td>Naufal Rizky</td>
+                        <td>TE-2D</td>
+                        <td>Laki-laki</td>
+                    </tr>
+                    <tr>
+                        <td>4.31.22.3.17</td>
+                        <td>Naufal Rizky</td>
+                        <td>TE-2D</td>
+                        <td>Laki-laki</td>
+                    </tr>
+                    <tr>
+                        <td>4.31.22.3.17</td>
+                        <td>Naufal Rizky</td>
+                        <td>TE-2D</td>
+                        <td>Laki-laki</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer">
+            <h1>Footer</h1>
+        </div>
+    </div>
+</body>
+</html>
