@@ -9,6 +9,7 @@ $air = new klas_air();
 $koneksi = $air->koneksi();
 $tipe_user = $air->tipe_user($_SESSION['username']);
 $data_user = $air->data_user($_SESSION['username']);
+$enkripsi  = $air->enkrip_pass($_SESSION['username']);
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +31,7 @@ $data_user = $air->data_user($_SESSION['username']);
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.php">Dashboard</a>
+        <a class="navbar-brand ps-3" href="index.php"><img src="../assets/img/nature.png" alt="easyclass" style="width: 24px; margin-right: 0.4rem; margin-bottom: 0.3rem" />Air</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
@@ -326,43 +327,87 @@ $data_user = $air->data_user($_SESSION['username']);
                         </div>
                     </div>
                     <?php
-                    if (isset($_POST['tombol']) == "user_add") {
-                        $nik = $_POST['nik'];
-                        $nama = $_POST['nama'];
-                        $email = $_POST['email'];
-                        $username = $_POST['username'];
-                        $pass = $_POST['password'];
-                        $alamat = $_POST['alamat'];
-                        $no_telepon = $_POST['no_telepon'];
-                        $tipe_user = $_POST['tipe_user'];
+                    if (isset($_POST['tombol'])) {
+                        $t = $_POST['tombol'];
+                        if ($t == 'user_add') {
+                            $nik = $_POST['nik'];
+                            $nama = $_POST['nama'];
+                            $email = $_POST['email'];
+                            $username = $_POST['username'];
+                            $pass = $_POST['password'];
+                            $alamat = $_POST['alamat'];
+                            $no_telepon = $_POST['no_telepon'];
+                            $tipe_user = $_POST['tipe_user'];
 
-                        $qc = mysqli_query($koneksi, "SELECT nik FROM user WHERE nik = '$nik' OR username = '$username'");
-                        $jc = mysqli_num_rows($qc);
-
-                        if (empty($jc)) {
-                            mysqli_query($koneksi, "INSERT INTO user (nik,nama,email,username,password,alamat,no_telepon,tipe_user) VALUES ('$nik',\"$nama\",'$email','$username', '$pass','$alamat','$no_telepon','$tipe_user')");
-                            if (mysqli_affected_rows($koneksi) > 0) {
-                                echo "
-                            <div class=\"alert alert-success alert-dismissible fade show\">
-                                <button type=button class=btn-close data-bs-dismiss=alert></button>
-                                <strong>Data</strong> Berhasil Ditambahkan!
-                            </div>
-                            ";
+                            $qc = mysqli_query($koneksi, "SELECT nik FROM user WHERE nik = '$nik' OR username = '$username'");
+                            $jc = mysqli_num_rows($qc);
+                            if (empty($jc)) {
+                                mysqli_query($koneksi, "INSERT INTO user (nik,nama,email,username,password,alamat,no_telepon,tipe_user) VALUES ('$nik',\"$nama\",'$email','$username', '$pass','$alamat','$no_telepon','$tipe_user')");
+                                if (mysqli_affected_rows($koneksi)) {
+                                    echo "
+                                    <div class=\"alert alert-success alert-dismissible fade show\">
+                                        <button type=button class=btn-close data-bs-dismiss=alert></button>
+                                        <strong>Data</strong> Berhasil Ditambahkan!
+                                    </div>
+                                    ";
+                                } else {
+                                    echo "
+                                    <div class=\"alert alert-danger alert-dismissible fade show\">
+                                        <button type=button class=btn-close data-bs-dismiss=alert></button>
+                                        <strong>Data</strong> gagal ditambahkan!
+                                    </div>
+                                    ";
+                                }
                             } else {
                                 echo "
-                            <div class=\"alert alert-danger alert-dismissible fade show\">
-                                <button type=button class=btn-close data-bs-dismiss=alert></button>
-                                <strong>Data</strong> gagal ditambahkan!
-                            </div>
-                            ";
+                                <div class=\"alert alert-danger alert-dismissible fade show\">
+                                    <button type=button class=btn-close data-bs-dismiss=alert></button>
+                                    <strong>NIK $nik atau Username $username</strong> sudah ada!
+                                </div>
+                                ";
                             }
-                        } else {
-                            echo "
-                            <div class=\"alert alert-danger alert-dismissible fade show\">
-                                <button type=button class=btn-close data-bs-dismiss=alert></button>
-                                <strong>NIK $nik atau Username $username</strong> sudah ada!
-                            </div>
-                            ";
+                        } elseif ($t == 'user_edit') {
+                            $nik = $_POST['nik'];
+                            $nama = $_POST['nama'];
+                            $email = $_POST['email'];
+                            $alamat = $_POST['alamat'];
+                            $no_telepon = $_POST['no_telepon'];
+                            $tipe_user = $_POST['tipe_user'];
+
+                            mysqli_query($koneksi, "UPDATE user SET nama = \"$nama\", email = '$email', alamat = '$alamat', no_telepon = '$no_telepon', tipe_user = '$tipe_user' WHERE nik = '$nik'");
+                            if (mysqli_affected_rows($koneksi)) {
+                                echo "
+                                <div class=\"alert alert-success alert-dismissible fade show\">
+                                    <button type=button class=btn-close data-bs-dismiss=alert></button>
+                                    <strong>Data</strong> Berhasil Diubah!
+                                </div>
+                                ";
+                            } else {
+                                echo "
+                                <div class=\"alert alert-danger alert-dismissible fade show\">
+                                    <button type=button class=btn-close data-bs-dismiss=alert></button>
+                                    <strong>Data</strong> gagal diubah!
+                                </div>
+                                ";
+                            }
+                        } elseif ($t == 'user_hapus') {
+                            $nik = $_POST['nik'];
+                            mysqli_query($koneksi, "DELETE FROM user WHERE nik = '$nik'");
+                            if (mysqli_affected_rows($koneksi)) {
+                                echo "
+                                <div class=\"alert alert-success alert-dismissible fade show\">
+                                    <button type=button class=btn-close data-bs-dismiss=alert></button>
+                                    <strong>Data</strong> Berhasil Dihapus!
+                                </div>
+                                ";
+                            } else {
+                                echo "
+                                <div class=\"alert alert-danger alert-dismissible fade show\">
+                                    <button type=button class=btn-close data-bs-dismiss=alert></button>
+                                    <strong>Data</strong> gagal Dihapus!
+                                </div>
+                                ";
+                            }
                         }
                     } elseif (isset($_GET['p'])) {
                         $p = $_GET['p'];
@@ -388,31 +433,31 @@ $data_user = $air->data_user($_SESSION['username']);
                             <form action="" method="POST" class="needs-validation" id="user_form">
                                 <div class="mb-3 mt-3">
                                     <label for="nik" class="form-label">NIK</label>
-                                    <input type="text" class="form-control" id="nik" placeholder="Masukan Nama"  value="<?php echo isset($nik) ? $nik : ''; ?>" name="nik" required>
+                                    <input type="text" class="form-control" id="nik" placeholder="Masukan Nama" value="<?php echo $nik ?>" name="nik" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">Nama</label>
-                                    <input type="text" class="form-control" id="nama" placeholder="Masukan Nama" value="<?php echo isset($nik) ? $nama : ''; ?>" name="nama">
+                                    <input type="text" class="form-control" id="nama" placeholder="Masukan Nama" value="<?php echo $nama ?>" name="nama">
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter Email" value="<?php echo isset($nik) ? $email : ''; ?>" name="email">
+                                    <input type="email" class="form-control" id="email" placeholder="Enter Email" value="<?php echo $email ?>" name="email">
                                 </div>
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Username</label>
-                                    <input type="username" class="form-control" id="usernama" placeholder="Enter Username" value="<?php echo isset($nik) ? $username : ''; ?>" name="username" required>
+                                    <input type="username" class="form-control" id="username" placeholder="Enter Username" value="<?php echo $username ?>" name="username" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" placeholder="Enter Password" value="<?php echo isset($nik) ? $password : ''; ?>" name="password">
+                                    <input type="password" class="form-control" id="password" placeholder="Enter Password" value="<?php echo $password ?>" name="password">
                                 </div>
                                 <div class="mb-3">
                                     <label for="alamat" class="form-label">Alamat</label>
-                                    <textarea type="text" class="form-control" rows="5" id="alamat" placeholder="Enter Alamat" value="<?php echo isset($nik) ? $alamat : ''; ?>" name="alamat"></textarea>
+                                    <textarea type="text" class="form-control" rows="5" id="alamat" placeholder="Enter Alamat" value="<?php echo $alamat ?>" name="alamat"></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label for="no_telepon" class="form-label">No. Telepon</label>
-                                    <input type="text" class="form-control" id="no_telepon" placeholder="Enter No Telepon" value="<?php echo isset($nik) ? $no_telepon : ''; ?>" name="no_telepon">
+                                    <input type="text" class="form-control" id="no_telepon" placeholder="Enter No Telepon" value="<?php echo $no_telepon ?>" name="no_telepon">
                                 </div>
                                 <div class="mb-3">
                                     <label for="tipe_user" class="form-label">Tipe User</label>
@@ -421,7 +466,7 @@ $data_user = $air->data_user($_SESSION['username']);
                                         <?php
                                         $tu = array("admin", "petugas", "bendahara", "warga");
                                         foreach ($tu as $tu2) {
-                                            if($tipe_user == $tu2) $sel = "SELECTED";
+                                            if ($tipe_user == $tu2) $sel = "SELECTED";
                                             else $sel = "";
                                             echo "<option value=$tu2 $sel>" . ucwords($tu2) . "</option>";
                                         }
@@ -432,6 +477,32 @@ $data_user = $air->data_user($_SESSION['username']);
                             </form>
                         </div>
                     </div>
+
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Konfirmasi Hapus Data</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body"></div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <form method="post">
+                                        <button type="submit" name="tombol" value="user_hapus" class="btn btn-danger" data-bs-dismiss="modal">Ya</button>
+                                    </form>
+                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Tidak</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="card mb-4" id="user_list">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
@@ -471,7 +542,7 @@ $data_user = $air->data_user($_SESSION['username']);
                                             <td>$tipe_user</td>
                                             <td>
                                                 <a href=\"index.php?p=user_edit&nik=$nik\"><button type=button class=\"btn btn-primary\">Ubah</button></a>
-                                                <button type=button class=\"btn btn-danger\">Hapus</button>
+                                                <button type=button class=\"btn btn-danger\" data-bs-toggle=modal data-bs-target=#myModal data-nik=$nik>Hapus</button>
                                             </td>
                                         </tr>";
                                     }
