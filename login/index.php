@@ -494,9 +494,9 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
                                     <form method="post">
-                                        <button type="submit" name="tombol" value="user_hapus" class="btn btn-danger" data-bs-dismiss="modal">Ya</button>
+                                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Tidak</button>
                                     </form>
-                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Tidak</button>
+                                    <button type="submit" name="tombol" value="user_hapus" class="btn btn-danger" data-bs-dismiss="modal">Ya</button>
                                 </div>
 
                             </div>
@@ -533,7 +533,7 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
                                         <th>Tanggal</th>
                                         <th>Aksi</th>
                                     </thead>";
-                                } elseif($e[1] == "lihat_pemakaian") {
+                                } elseif ($e[1] == "lihat_pemakaian") {
                                     echo " 
                                     <thead>
                                         <th>No</th>
@@ -542,7 +542,7 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
                                         <th>Status</th>
                                         <th>Tanggal</th>
                                     </thead>";
-                                } elseif($e[1] == "ubah_data") {
+                                } elseif ($e[1] == "ubah_data") {
                                     echo " 
                                     <thead>
                                         <th>No</th>
