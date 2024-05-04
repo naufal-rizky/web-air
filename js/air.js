@@ -13,7 +13,7 @@ $(document).ready(function () {
       $("#user_add").show();
       $(
         "#user_form input[name='nik'], #user_form input[name='username'], #user_form input[name='password']"
-      ).attrt("disabled", true);
+      ).attr("disabled", true);
       $("#user_form button").val("user_edit");
       $("#user_form").append("<input type=hidden name=nik value=" + e[2] + ">");
     }
@@ -25,6 +25,14 @@ $(document).ready(function () {
       $("#user_list").show();
       $("#user_add").hide();
     }
+  } else if (e[1] == "lihat_komplain") {
+    $("#summary, #chart, #user_add").hide();
+  } else if (e[1] == "lihat_pemakaian") {
+    $("#summary, #chart, #user_add").hide();
+  } else if (e[1] == "ubah_data") {
+    $("#summary, #chart, #user_add").hide();
+  } else {
+    $("#summary, #chart, #user_add, #user_list").hide();
   }
 
   $(".datatable-dropdown").append(

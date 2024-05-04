@@ -6,7 +6,7 @@ if (empty($_SESSION['user']) && empty($_SESSION['password'])) {
 
 include '../assets/func.php';
 $air = new klas_air();
-$koneksi = koneksi();
+$koneksi = koneksi(); // koneksi
 $tipe_user = $air->tipe_user($_SESSION['username']);
 $data_user = $air->data_user($_SESSION['username']);
 $enkripsi  = $air->enkrip_pass($_SESSION['username']);
@@ -453,7 +453,7 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
                                 </div>
                                 <div class="mb-3">
                                     <label for="alamat" class="form-label">Alamat</label>
-                                    <textarea type="text" class="form-control" rows="5" id="alamat" placeholder="Enter Alamat" value="<?php echo $alamat ?>" name="alamat"></textarea>
+                                    <textarea type="text" class="form-control" id="alamat" placeholder="Enter Alamat" name="alamat"><?php echo $alamat ?></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label for="no_telepon" class="form-label">No. Telepon</label>
@@ -510,41 +510,80 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
                         </div>
                         <div class="card-body">
                             <table id="datatablesSimple">
-                                <thead>
-                                    <th>NIK</th>
-                                    <th>nama</th>
-                                    <th>username</th>
-                                    <th>email</th>
-                                    <th>No. Telepon</th>
-                                    <th>Tipe User</th>
-                                    <th>Aksi</th>
-
-                                </thead>
+                                <?php
+                                $e = explode("=", $_SERVER['REQUEST_URI']);
+                                if ($e[1] == "user") {
+                                    echo " 
+                                    <thead>
+                                        <th>NIK</th>
+                                        <th>nama</th>
+                                        <th>username</th>
+                                        <th>email</th>
+                                        <th>No. Telepon</th>
+                                        <th>Tipe User</th>
+                                        <th>Aksi</th>
+                                    </thead>";
+                                } elseif ($e[1] == "lihat_komplain") {
+                                    echo " 
+                                    <thead>
+                                        <th>No</th>
+                                        <th>No Pembayaran</th>
+                                        <th>Pesan</th>
+                                        <th>Status</th>
+                                        <th>Tanggal</th>
+                                        <th>Aksi</th>
+                                    </thead>";
+                                } elseif($e[1] == "lihat_pemakaian") {
+                                    echo " 
+                                    <thead>
+                                        <th>No</th>
+                                        <th>ID Tarif</th>
+                                        <th>No Meter</th>
+                                        <th>Status</th>
+                                        <th>Tanggal</th>
+                                    </thead>";
+                                } elseif($e[1] == "ubah_data") {
+                                    echo " 
+                                    <thead>
+                                        <th>No</th>
+                                        <th>NIK</th>
+                                        <th>Meter Awal</th>
+                                        <th>Meter Akhir</th>
+                                        <th>Pemakaian</th>
+                                        <th>Foto</th>
+                                        <th>Tanggal</th>
+                                        <th>Waktu</th>
+                                    </thead>";
+                                }
+                                ?>
                                 <tbody>
                                     <?php
-                                    $q = mysqli_query($koneksi, "SELECT nik, nama, username, email, no_telepon, tipe_user FROM user ORDER BY tipe_user ASC, nama ASC");
-                                    while ($d = mysqli_fetch_row($q)) {
-                                        $nik = $d[0];
-                                        $nama = $d[1];
-                                        $username = $d[2];
-                                        $email = $d[3];
-                                        $no_telpon = $d[4];
-                                        $tipe_user = $d[5];
+                                    $e = explode("=", $_SERVER['REQUEST_URI']);
+                                    if ($e[1] == "user") {
+                                        $q = mysqli_query($koneksi, "SELECT nik, nama, username, email, no_telepon, tipe_user FROM user ORDER BY tipe_user ASC, nama ASC");
+                                        while ($d = mysqli_fetch_row($q)) {
+                                            $nik = $d[0];
+                                            $nama = $d[1];
+                                            $username = $d[2];
+                                            $email = $d[3];
+                                            $no_telpon = $d[4];
+                                            $tipe_user = $d[5];
 
 
-                                        echo "
-                                        <tr>
-                                            <td>$nik</td>
-                                            <td>$nama</td>
-                                            <td>$username</td>
-                                            <td>$email</td>
-                                            <td>$no_telpon</td>
-                                            <td>$tipe_user</td>
-                                            <td>
-                                                <a href=\"index.php?p=user_edit&nik=$nik\"><button type=button class=\"btn btn-primary\">Ubah</button></a>
-                                                <button type=button class=\"btn btn-danger\" data-bs-toggle=modal data-bs-target=#myModal data-nik=$nik>Hapus</button>
-                                            </td>
-                                        </tr>";
+                                            echo "
+                                            <tr>
+                                                <td>$nik</td>
+                                                <td>$nama</td>
+                                                <td>$username</td>
+                                                <td>$email</td>
+                                                <td>$no_telpon</td>
+                                                <td>$tipe_user</td>
+                                                <td>
+                                                    <a href=\"index.php?p=user_edit&nik=$nik\"><button type=button class=\"btn btn-primary\">Ubah</button></a>
+                                                    <button type=button class=\"btn btn-danger\" data-bs-toggle=modal data-bs-target=#myModal data-nik=$nik>Hapus</button>
+                                                </td>
+                                            </tr>";
+                                        }
                                     }
                                     ?>
                                 </tbody>

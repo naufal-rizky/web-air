@@ -30,6 +30,13 @@ class klas_air
             mysqli_query(koneksi(), "UPDATE user SET password = \"$pass_enkripsi\" WHERE nik = '$nik'");
         }
     }
+
+    // function koneksi()
+    // {
+    //     $koneksi = mysqli_connect('localhost', 'user_air', '#Us3r_A1r_2024#', 'air');
+
+    //     return $koneksi;
+    // }
     // function tampil_user()
     // {
     //     $q = mysqli_query($this->koneksi(), "SELECT nik, nama, username, email, no_telepon, alamat, tipe_user FROM user ORDER BY tipe_user ASC, nama ASC");
