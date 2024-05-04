@@ -2,7 +2,7 @@
 //koneksi ke database
 include './assets/func.php';
 $air = new klas_air;
-$koneksi = $air->koneksi();
+$koneksi = koneksi();
 $encrypt = $air->enkrip_pass();
 
 ?>
