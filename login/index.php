@@ -6,7 +6,7 @@ if (empty($_SESSION['user']) && empty($_SESSION['password'])) {
 
 include '../assets/func.php';
 $air = new klas_air();
-$koneksi = $air->koneksi();
+$koneksi = koneksi();
 $tipe_user = $air->tipe_user($_SESSION['username']);
 $data_user = $air->data_user($_SESSION['username']);
 $enkripsi  = $air->enkrip_pass($_SESSION['username']);
