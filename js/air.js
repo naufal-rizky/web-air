@@ -18,7 +18,7 @@ $(document).ready(function () {
       $("#user_form").append("<input type=hidden name=nik value=" + e[2] + ">");
     }
 
-    if ($("#alert-user").hasClass("alert-danger")) {
+    if ($("#alert-user").hasClass("alert-danger")) { // alert
       $("#user_list").hide();
       $("#user_add").show();
     } else if ($("#alert-user").hasClass("#alert-success")) {

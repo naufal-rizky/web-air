@@ -52,7 +52,7 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                    <li><a class="dropdown-item" href="logout.php">Logout</a></li> // Log
                 </ul>
             </li>
         </ul>
