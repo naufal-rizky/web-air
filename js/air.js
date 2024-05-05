@@ -29,14 +29,14 @@ $(document).ready(function () {
     $("#summary, #chart, #user_add").hide();
   } else if (e[1] == "lihat_pemakaian") {
     $("#summary, #chart, #user_add").hide();
-  } else if (e[1] == "ubah_data") {
+  } else if (e[1] == "ubah_meter") {
     $("#summary, #chart, #user_add").hide();
   } else {
     $("#summary, #chart, #user_add, #user_list").hide();
   }
 
   $(".datatable-dropdown").append(
-    '<button type=button class="btn btn-success float-start me-2"><i class="fa-solid fa-user-plus me-2"></i>Tambah Data</button>'
+    '<button type=button class="btn btn-success tambah float-start me-2"><i class="fa-solid fa-user-plus me-2"></i>Tambah Data</button>'
   );
 
   $(".datatable-dropdown button").click(function () {
@@ -56,4 +56,6 @@ $(document).ready(function () {
       "<input type=hidden name=nik value=" + nik + ">"
     );
   });
+
+
 });

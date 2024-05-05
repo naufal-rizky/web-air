@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poetsen+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  background-color: rgb(248, 249, 250);
+}
+
+.sb-sidenav-light .sb-sidenav-menu .nav-link {
+  color: #3d3b40;
+  font-weight: 500;
+}
+
+.sb-sidenav-light .sb-sidenav-menu .nav-link:hover {
+  color: #000000;
+  background-color: rgb(226, 226, 226);
+}
+
+.navbar-brand {
+  font-weight: 700;
+}
+
+.navbar-brand p:hover {
+  color: #b4d4ff;
+}
+
+.search {
+  background-color: #b4d4ff;
+  color: white;
+  border: none;
+}
+
+.search:hover {
+  background-color: #ced4da;
+  border: 1px solid #ced4da;
+}
+
+.search-bar {
+  border: none;
+  background-color: #eef5ff;
+  color: white;
+  font-weight: 500;
+}
+
+.search-bar::placeholder {
+  color: #3d3b40;
+}
+
+.ubah {
+  background-color: #FDE767;
+  border: none;
+  color: #3d3b40;
+  font-weight: 400;
+}
+
+.ubah:hover{
+    background-color: #d7c13f;
+}
+
+.hapus {
+  background-color: #ff6575;
+  border: none;
+  color: white;
+  font-weight: 400;
+}
+
+.tambah {
+  border: none;
+  background-color: #02b461;
+  font-weight: 400;
+  color: white;
+}

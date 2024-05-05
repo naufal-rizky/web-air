@@ -25,20 +25,21 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="../css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/index.css">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-light bg-light">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.php"><img src="../assets/img/nature.png" alt="easyclass" style="width: 24px; margin-right: 0.4rem; margin-bottom: 0.3rem" />Air</a>
+        <a class="navbar-brand ps-3" href="index.php"><img src="../assets/img/nature.png" alt="easyclass" style="width: 24px; margin-right: 0.4rem; margin-bottom: 0.3rem" /><p style="display: inline;">Air</p></a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                <input class="form-control search-bar" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary search" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
             </div>
         </form>
         <!-- Navbar-->
@@ -58,7 +59,7 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
@@ -82,9 +83,9 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Lihat Pemakaian
                             </a>
-                            <a class="nav-link" href="index.php?p=ubah_data">
+                            <a class="nav-link" href="index.php?p=ubah_meter">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Ubah Data
+                                Ubah Meter
                             </a>
                         <?php
                         }
@@ -168,7 +169,7 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
                 <div class="sb-sidenav-footer">
                     <div class="small"><i class="fa-solid fa-droplet" style="width: 10px;"></i> Logged in as:</div>
                     <?php
-                    echo "$data_user[1] ($data_user[2])";
+                    echo "<b>$data_user[1]</b> ($data_user[2])";
                     ?>
                 </div>
             </nav>
@@ -188,8 +189,8 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
                         } elseif ($e[1] == 'lihat_pemakaian') {
                             $h1 = "Lihat Pemakaian";
                             $h2 = "Menu untuk melihat data pemakaian warga";
-                        } elseif ($e[1] == 'ubah_data') {
-                            $h1 = "Ubah Data";
+                        } elseif ($e[1] == 'ubah_meter') {
+                            $h1 = "Ubah Meter";
                             $h2 = "Menu untuk mengubah data warga";
                         }
                     } else {
@@ -493,10 +494,10 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
 
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Tidak</button>
                                     <form method="post">
-                                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Tidak</button>
+                                        <button type="submit" name="tombol" value="user_hapus" class="btn btn-danger" data-bs-dismiss="modal">Ya</button>
                                     </form>
-                                    <button type="submit" name="tombol" value="user_hapus" class="btn btn-danger" data-bs-dismiss="modal">Ya</button>
                                 </div>
 
                             </div>
@@ -542,7 +543,7 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
                                         <th>Status</th>
                                         <th>Tanggal</th>
                                     </thead>";
-                                } elseif ($e[1] == "ubah_data") {
+                                } elseif ($e[1] == "ubah_meter") {
                                     echo " 
                                     <thead>
                                         <th>No</th>
@@ -579,8 +580,8 @@ $enkripsi  = $air->enkrip_pass($_SESSION['username']);
                                                 <td>$no_telpon</td>
                                                 <td>$tipe_user</td>
                                                 <td>
-                                                    <a href=\"index.php?p=user_edit&nik=$nik\"><button type=button class=\"btn btn-primary\">Ubah</button></a>
-                                                    <button type=button class=\"btn btn-danger\" data-bs-toggle=modal data-bs-target=#myModal data-nik=$nik>Hapus</button>
+                                                    <a href=\"index.php?p=user_edit&nik=$nik\"><button type=button class=\"btn btn-primary ubah\">Ubah</button></a>
+                                                    <button type=button class=\"btn btn-danger hapus\" data-bs-toggle=modal data-bs-target=#myModal data-nik=$nik>Hapus</button>
                                                 </td>
                                             </tr>";
                                         }
