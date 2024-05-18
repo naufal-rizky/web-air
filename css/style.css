@@ -426,3 +426,11 @@ main.sign-up-mode .carousell {
     font-size: 0.8rem;
   }
 }   
+
+.text a {
+  text-decoration: none;
+}
+
+.form-control {
+  display: none;
+}
