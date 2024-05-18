@@ -21,7 +21,7 @@ class klas_air
     function enkrip_pass()
     {
         $q = mysqli_query(koneksi(), "SELECT nik, username, password FROM user ORDER BY nama ASC");
-        while ($data = mysqli_fetch_array($q)) {
+        while ($data = mysqli_fetch_row($q)) {
             $nik  = $data[0];
             $user = $data[1];
             $pass = $data[2];
@@ -29,6 +29,24 @@ class klas_air
             $pass_enkripsi = password_hash($user, PASSWORD_DEFAULT);
             mysqli_query(koneksi(), "UPDATE user SET password = \"$pass_enkripsi\" WHERE nik = '$nik'");
         }
+    }
+
+    function sesi_to_nik($sesi) {
+        $q = mysqli_query(koneksi(), "SELECT nik FROM user WHERE username='$sesi'");
+        $d = mysqli_fetch_row($q);
+        return $d[0];
+    }
+
+    function nik_to_nama($nik) {
+        $q = mysqli_query(koneksi(), "SELECT nama FROM user WHERE nik='$nik'");
+        $d = mysqli_fetch_row($q);
+        return $d[0];
+    }
+
+    function tgl_balik($tgl) {
+        $e = explode("-", $tgl);
+        $tgl_baru = $e[2] . '-' . $e[1] . '-' . $e[0];
+        return $tgl_baru;
     }
 
     // function koneksi()
